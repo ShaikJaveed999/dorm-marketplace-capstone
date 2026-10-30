@@ -98,7 +98,7 @@ export function createItem(input, { storage = browserStorage(), now = Date.now }
     throw new Error('Please complete all required listing fields.')
   }
   const numericPrice = Number(input.price)
-  if (!input.isFree && (!Number.isFinite(numericPrice) || numericPrice < 0)) {
+  if (!input.isFree && (String(input.price ?? '').trim() === '' || !Number.isFinite(numericPrice) || numericPrice < 0)) {
     throw new Error('Enter a valid price of zero or more.')
   }
 

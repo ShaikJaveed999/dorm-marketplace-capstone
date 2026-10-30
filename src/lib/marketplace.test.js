@@ -175,6 +175,19 @@ describe('marketplace operations', () => {
     expect(getState(storage).items).toHaveLength(createSeedState().items.length)
   })
 
+  it('rejects a paid listing when its required price is missing', () => {
+    expect(() => createItem({
+      title: 'Desk fan',
+      description: 'Quiet and clean.',
+      category: 'Appliances',
+      price: '',
+      isFree: false,
+      sellerId: 'javid',
+      sellerName: 'Javid',
+      dormLocation: 'Maple Hall',
+    }, { storage })).toThrow('Enter a valid price of zero or more.')
+  })
+
   it('shows validation feedback when the listing form is submitted incomplete', async () => {
     render(createElement(App))
     fireEvent.click(screen.getByRole('button', { name: /list an item/i }))
